@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name · Mathematics</title>
+
+    <!-- ==================== 样式表（可以自由调整颜色和间距） ==================== -->
+    <style>
+        /* 全局重置与基础排版 */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Source Serif 4", "Georgia", "Times New Roman", serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 0 20px;
+        }
+        a { color: #1a5276; text-decoration: none; border-bottom: 1px solid #aab7c4; }
+        a:hover { border-bottom-color: #1a5276; }
+
+        /* 主容器 */
+        .container {
+            max-width: 920px;
+            margin: 60px auto;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* 左侧个人信息卡片 */
+        .sidebar {
+            flex: 0 0 260px;
+            background: #fff;
+            padding: 35px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+        .profile-pic {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .sidebar h1 {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+        .sidebar .affil {
+            font-size: 0.95em;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .sidebar .info-item {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .sidebar .info-item a {
+            border-bottom: none;
+        }
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+
+        /* 右侧主体区域 */
+        .main { flex: 1; min-width: 0; }
+        .section {
+            background: #fff;
+            padding: 30px 35px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+        .section h2 {
+            font-size: 1.35em;
+            font-weight: 600;
+            margin-bottom: 0.7em;
+            padding-bottom: 0.25em;
+            border-bottom: 2px solid #e9ecef;
+            color: #1a1a1a;
+        }
+        .section p, .section li { margin-bottom: 0.7em; }
+
+        /* 列表（无符号列表常用于论文） */
+        ul.clean-list { list-style: none; padding-left: 0; }
+
+        /* 论文条目 */
+        .pub-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: transform 0.15s ease;
+        }
+        .pub-item:last-child { border-bottom: none; }
+        .pub-item:hover { transform: translateX(6px); }
+        .pub-title { font-weight: 600; font-size: 1.05em; margin-bottom: 2px; }
+        .pub-meta { font-size: 0.9em; color: #666; margin-bottom: 3px; }
+        .pub-links a {
+            font-size: 0.85em;
+            margin-right: 12px;
+            border-bottom: 1px dashed #b0bec5;
+            color: #37474f;
+        }
+        .pub-links a:hover { border-bottom-style: solid; }
+
+        /* 预印本 / 已发表 标签 */
+        .tag {
+            display: inline-block;
+            background: #e8f0fe;
+            color: #1565c0;
+            font-size: 0.75em;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .tag.preprint { background: #fef3e0; color: #e65100; }
+
+        /* 演讲列表 */
+        .talk-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .talk-item:last-child { border-bottom: none; }
+        .talk-date { font-weight: 600; }
+
+        /* 照片网格 */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .gallery img:hover { transform: scale(1.02); }
+
+        /* 响应式：手机端上下排列 */
+        @media (max-width: 750px) {
+            .container { flex-direction: column; }
+            .sidebar { flex: none; width: 100%; text-align: center; }
+            .sidebar .profile-pic { width: 180px; margin: 0 auto 25px; }
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            margin: 30px 0 20px;
+        }
+    </style>
+
+    <!-- ==================== MathJax 数学公式支持 ==================== -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],   // 使用 \( ... \) 输入行内公式
+                displayMath: [['$$', '$$']]    // 使用 $$ ... $$ 输入独立公式
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- 可选：引入优雅的衬线字体 (Source Serif 4) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ==================== 左侧边栏：个人基本信息 ==================== -->
+    <aside class="sidebar">
+        <!-- 请把你的照片命名为 photo.jpg 放在和 index.html 同一目录 -->
+        <img src="photo.jpg" alt="Your Name" class="profile-pic">
+
+        <h1>Your Name</h1>
+        <div class="affil">
+            PhD in Mathematics<br>
+            Department of Mathematics<br>
+            University of Somewhere<br>
+            City, Country
+        </div>
+
+        <div class="info-item">📧 name [at] university.edu</div>
+        <div class="info-item">🏢 Office: Room 3.14</div>
+        <hr>
+        <div class="info-item">
+            <a href="cv.pdf">📄 Curriculum Vitae (PDF)</a>
+        </div>
+        <div class="info-item">
+            <a href="https://scholar.google.com/citations?user=YOUR_ID">Google Scholar</a>
+        </div>
+        <div class="info-item">
+            <a href="https://arxiv.org/a/YOUR_ID">arXiv</a>
+        </div>
+        <div class="info-item">
+            <a href="https://orcid.org/YOUR_ID">ORCID</a>
+        </div>
+        <!-- 可继续添加 GitHub, MathSciNet 等 -->
+    </aside>
+
+    <!-- ==================== 右侧主体：所有学术内容 ==================== -->
+    <main class="main">
+
+        <!-- 简短介绍 -->
+        <div class="section">
+            <h2>About Me</h2>
+            <p>
+                I am a mathematician working at the intersection of <em>algebraic geometry</em>
+                and <em>number theory</em>. My research focuses on derived categories,
+                stability conditions, and \(p\)-adic Hodge theory.
+            </p>
+            <p>
+                I am particularly interested in how categorical methods can be used to 
+                solve classical problems in arithmetic geometry.
+            </p>
+        </div>
+
+        <!-- 研究兴趣（可以用 LaTeX 公式） -->
+        <div class="section">
+            <h2>Research Interests</h2>
+            <ul>
+                <li>Derived categories and \(t\)-structures on algebraic varieties</li>
+                <li>Motivic homotopy theory and its applications</li>
+                <li>\(p\)-adic Hodge theory and perfectoid spaces</li>
+                <li>Stability conditions in the sense of Bridgeland</li>
+            </ul>
+        </div>
+
+        <!-- 教育背景（可选） -->
+        <div class="section">
+            <h2>Education</h2>
+            <ul class="clean-list">
+                <li><strong>Ph.D. in Mathematics</strong>, University of Somewhere, 2024<br>
+                    <span style="color:#666;">Thesis: <em>On the motivic Galois group</em> · Advisor: Prof. A. Advisor</span></li>
+                <li><strong>M.Sc. in Mathematics</strong>, Another University, 2020</li>
+                <li><strong>B.Sc. in Mathematics</strong>, Another University, 2018</li>
+            </ul>
+        </div>
+
+        <!-- 发表论文与预印本 -->
+        <div class="section">
+            <h2>Publications & Preprints</h2>
+
+            <!-- 论文条目模板，可以无限复制 -->
+            <div class="pub-item">
+                <div class="pub-title">
+                    On the motivic Galois group
+                    <span class="tag">published</span>
+                </div>
+                <div class="pub-meta">
+                    with A. Coauthor · <em>Journal of Pure and Applied Algebra</em>, 2025
+                </div>
+                <div class="pub-links">
+                    <a href="https://arxiv.org/abs/2501.xxxxx">arXiv</a>
+                    <a href="https://doi.org/...">DOI</a>
+                    <a href="#">PDF</a>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-title">
+                    Stability conditions on Calabi-Yau varieties
+                    <span class="tag preprint">preprint</span>
+                </div>
+                <div class="pub-meta">
+                    2023
+                </div>
+                <div class="pub-links">
+                    <a href="https://arxiv.org/abs/2306.xxxxx">arXiv</a>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-title">
+                    A short proof of the ...
+                    <span class="tag">published</span>
+                </div>
+                <div class="pub-meta">
+                    <em>Mathematische Annalen</em>, 2022
+                </div>
+                <div class="pub-links">
+                    <a href="https://doi.org/...">DOI</a>
+                    <a href="#">PDF</a>
+                </div>
+            </div>
+            <!-- 增加更多论文只需复制 pub-item 块 -->
+        </div>
+
+        <!-- 演讲与会议 -->
+        <div class="section">
+            <h2>Talks & Conferences</h2>
+            <div class="talk-item">
+                <span class="talk-date">Jul 2026</span> — 
+                <em>Derived categories and motivic sheaves</em><br>
+                <span style="color:#666;">International Congress of Mathematicians (invited talk), Philadelphia</span>
+            </div>
+            <div class="talk-item">
+                <span class="talk-date">Mar 2026</span> — 
+                <em>Stability conditions on K3 surfaces</em><br>
+                <span style="color:#666;">Algebraic Geometry Seminar, MIT</span>
+            </div>
+            <div class="talk-item">
+                <span class="talk-date">Oct 2025</span> — 
+                <em>\(p\)-adic Hodge theory for beginners</em><br>
+                <span style="color:#666;">Graduate Colloquium, University of Somewhere</span>
+            </div>
+        </div>
+
+        <!-- 教学经历 -->
+        <div class="section">
+            <h2>Teaching</h2>
+            <ul>
+                <li><strong>Spring 2026:</strong> MATH 101 Linear Algebra (Instructor)</li>
+                <li><strong>Fall 2025:</strong> MATH 202 Calculus II (Teaching Assistant)</li>
+                <li><strong>Spring 2025:</strong> MATH 301 Abstract Algebra (TA)</li>
+            </ul>
+        </div>
+
+        <!-- 学术服务与活动 -->
+        <div class="section">
+            <h2>Service & Activities</h2>
+            <ul>
+                <li>Co-organizer, <em>Young Researchers in Algebraic Geometry</em>, 2025</li>
+                <li>Referee for <em>Journal of Algebra</em>, <em>Mathematische Zeitschrift</em></li>
+            </ul>
+        </div>
+
+        <!-- 照片画廊（可选，可先保留空结构，以后再加） -->
+        <div class="section">
+            <h2>Photos</h2>
+            <div class="gallery">
+                <!-- 图片放在 images/ 文件夹下，例如 images/seminar1.jpg -->
+                <img src="images/seminar1.jpg" alt="Speaking at a seminar">
+                <img src="images/blackboard.jpg" alt="Blackboard work">
+                <img src="images/conference.jpg" alt="Conference group">
+                <!-- 继续添加更多 -->
+            </div>
+            <p style="color:#888; font-size:0.9em; margin-top:10px;">
+                Moments from conferences and seminars.
+            </p>
+        </div>
+
+        <!-- 页脚更新时间 -->
+        <div class="footer">
+            Last updated: July 2026
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
