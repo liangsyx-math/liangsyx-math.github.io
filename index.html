@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name · Mathematics</title>
+    <title>Your Name · Page Title</title>
     <style>
-        /* 全局 */
+        /* ========== 全局样式（与之前新版一致，保持不变） ========== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
@@ -20,14 +20,12 @@
         a { color: #1a5276; text-decoration: none; }
         a:hover { text-decoration: underline; }
 
-        /* 容器 */
         .container {
             max-width: 780px;
             margin: 0 auto;
             padding: 40px 20px 60px;
         }
 
-        /* 头部区域 */
         .site-header {
             display: flex;
             justify-content: space-between;
@@ -37,120 +35,60 @@
             padding-bottom: 0.8em;
             border-bottom: 1px solid #e0e0e0;
         }
-        .header-left h1 {
-            font-size: 2em;
-            font-weight: 600;
-            margin-bottom: 0.1em;
-        }
-        .header-left .affil {
-            font-size: 0.95em;
-            color: #555;
-        }
+        .header-left h1 { font-size: 2em; font-weight: 600; margin-bottom: 0.1em; }
+        .header-left .affil { font-size: 0.95em; color: #555; }
         .header-right img.profile-pic {
-            width: 90px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 50%;
+            width: 90px; height: 90px; object-fit: cover; border-radius: 50%;
         }
 
-        /* 导航 */
-        nav {
-            margin: 1.5em 0 2em;
-        }
+        nav { margin: 1.5em 0 2em; }
         nav a {
-            display: inline-block;
-            margin-right: 25px;
-            font-weight: 500;
-            font-size: 0.95em;
-            color: #444;
-            border-bottom: none;
+            display: inline-block; margin-right: 25px; font-weight: 500;
+            font-size: 0.95em; color: #444; border-bottom: none;
         }
         nav a:hover { color: #1a5276; }
+        nav a.active { color: #1a5276; font-weight: 600; border-bottom: 2px solid #1a5276; }
 
-        /* 板块 */
-        .section {
-            margin-bottom: 2.5em;
-        }
+        .section { margin-bottom: 2.5em; }
         .section h2 {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 0.6em;
-            padding-bottom: 0.1em;
-            border-bottom: 2px solid #eee;
+            font-size: 1.4em; font-weight: 600; margin-bottom: 0.6em;
+            padding-bottom: 0.1em; border-bottom: 2px solid #eee;
         }
         .section p, .section li { margin-bottom: 0.5em; }
 
-        /* 论文条目 */
-        .pub-item {
-            margin-bottom: 1.2em;
-        }
-        .pub-title {
-            font-weight: 600;
-        }
-        .pub-meta {
-            font-size: 0.9em;
-            color: #555;
-            margin-bottom: 0.1em;
-        }
-        .pub-links a {
-            font-size: 0.85em;
-            margin-right: 15px;
-            color: #555;
-            border-bottom: 1px dashed #aaa;
-        }
+        .pub-item { margin-bottom: 1.2em; }
+        .pub-title { font-weight: 600; }
+        .pub-meta { font-size: 0.9em; color: #555; margin-bottom: 0.1em; }
+        .pub-links a { font-size: 0.85em; margin-right: 15px; color: #555; border-bottom: 1px dashed #aaa; }
         .pub-links a:hover { border-bottom-style: solid; }
         .tag {
-            display: inline-block;
-            background: #e8f0fe;
-            color: #1565c0;
-            font-size: 0.7em;
-            font-weight: 600;
-            padding: 1px 7px;
-            border-radius: 10px;
-            margin-left: 6px;
+            display: inline-block; background: #e8f0fe; color: #1565c0; font-size: 0.7em;
+            font-weight: 600; padding: 1px 7px; border-radius: 10px; margin-left: 6px;
             vertical-align: middle;
         }
         .tag.preprint { background: #fef3e0; color: #e65100; }
 
-        /* 演讲 */
-        .talk-item {
-            margin-bottom: 1em;
-        }
+        .talk-item { margin-bottom: 1em; }
         .talk-date { font-weight: 600; }
 
-        /* 画廊 */
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 0.8em;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px; margin-top: 0.8em;
         }
         .gallery img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: transform 0.2s;
+            width: 100%; height: 140px; object-fit: cover; border-radius: 6px;
+            cursor: pointer; transition: transform 0.2s;
         }
         .gallery img:hover { transform: scale(1.02); }
 
-        /* 页脚 */
-        .footer {
-            text-align: center;
-            color: #888;
-            font-size: 0.85em;
-            margin-top: 2em;
-        }
+        .footer { text-align: center; color: #888; font-size: 0.85em; margin-top: 2em; }
 
-        /* 响应式：窄屏时头像移到上面 */
         @media (max-width: 600px) {
             .site-header { flex-direction: column; align-items: flex-start; }
             .header-right { margin-top: 15px; }
             nav a { display: block; margin-bottom: 5px; }
         }
     </style>
-
     <!-- MathJax -->
     <script>
         MathJax = {
@@ -161,128 +99,47 @@
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-
 <div class="container">
 
-    <!-- ========== 头部：名字、单位、照片 ========== -->
+    <!-- ===== 头部（每个页面完全一样） ===== -->
     <header class="site-header">
         <div class="header-left">
-            <h1>Your Name</h1>
+            <h1>Shiyixin Liang (梁 石易新)</h1>
             <div class="affil">
-                PhD in Mathematics<br>
-                Department of Mathematics, University of Somewhere
+                Ph.D. in Mathematics<br>
+                Qiuzhen College, Tsinghua University
             </div>
         </div>
         <div class="header-right">
-            <img src="photo.jpg" alt="Your Name" class="profile-pic">
+            <img src="my_photo.jpg" alt="Your Name" class="profile-pic">
         </div>
     </header>
 
-    <!-- ========== 导航栏 ========== -->
+    <!-- ===== 导航栏（每个页面一样，但当前页高亮） ===== -->
     <nav>
-        <a href="#about">About</a>
-        <a href="#publications">Publications</a>
-        <a href="#talks">Talks</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#photos">Photos</a>
-        <a href="cv.pdf">CV</a>
+        <a href="index.html" class="active">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="notes.html">Notes</a>
+        <a href="miscellaneous.html">Miscellaneous</a>
     </nav>
 
-    <!-- ========== 关于我 ========== -->
-    <div class="section" id="about">
-        <h2>About Me</h2>
-        <p>
-            I am a Ph.D. student in mathematics, specializing in 
-            <strong>Geometric Representation Theory</strong> and 
-            <strong>Algebraic Geometry</strong>. I also maintain a strong 
-            interest in arithmetic geometry and mathematical physics.
-        </p>
-        <p>
-            📧 name [at] university.edu · 🏢 Office: Room 3.14
-        </p>
-    </div>
-
-    <!-- ========== 发表论文 ========== -->
-    <div class="section" id="publications">
-        <h2>Publications & Preprints</h2>
-
-        <div class="pub-item">
-            <div class="pub-title">
-                On the motivic Galois group
-                <span class="tag">published</span>
-            </div>
-            <div class="pub-meta">
-                with A. Coauthor · <em>J. Pure Appl. Algebra</em>, 2025
-            </div>
-            <div class="pub-links">
-                <a href="https://arxiv.org/abs/2501.xxxxx">arXiv</a>
-                <a href="#">DOI</a>
-                <a href="#">PDF</a>
-            </div>
-        </div>
-
-        <div class="pub-item">
-            <div class="pub-title">
-                Stability conditions on Calabi-Yau varieties
-                <span class="tag preprint">preprint</span>
-            </div>
-            <div class="pub-meta">2023</div>
-            <div class="pub-links">
-                <a href="https://arxiv.org/abs/2306.xxxxx">arXiv</a>
-            </div>
-        </div>
-
-        <div class="pub-item">
-            <div class="pub-title">
-                A short proof of the ...
-                <span class="tag">published</span>
-            </div>
-            <div class="pub-meta"><em>Math. Ann.</em>, 2022</div>
-            <div class="pub-links">
-                <a href="#">DOI</a>
-                <a href="#">PDF</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== 学术报告 ========== -->
-    <div class="section" id="talks">
-        <h2>Talks & Conferences</h2>
-        <div class="talk-item">
-            <span class="talk-date">Jul 2026</span> — 
-            <em>Derived categories and motivic sheaves</em><br>
-            <span style="color:#666;">ICM, Philadelphia (invited)</span>
-        </div>
-        <div class="talk-item">
-            <span class="talk-date">Mar 2026</span> — 
-            <em>Stability conditions on K3 surfaces</em><br>
-            <span style="color:#666;">Algebraic Geometry Seminar, MIT</span>
-        </div>
-    </div>
-
-    <!-- ========== 教学 ========== -->
-    <div class="section" id="teaching">
-        <h2>Teaching</h2>
-        <ul>
-            <li><strong>Spring 2026:</strong> MATH 101 Linear Algebra (Instructor)</li>
-            <li><strong>Fall 2025:</strong> MATH 202 Calculus II (TA)</li>
-        </ul>
-    </div>
-
-    <!-- ========== 照片 ========== -->
-    <div class="section" id="photos">
-        <h2>Photos</h2>
-        <div class="gallery">
-            <img src="images/seminar1.jpg" alt="Seminar">
-            <img src="images/blackboard.jpg" alt="Blackboard">
-            <img src="images/conference.jpg" alt="Conference">
-        </div>
-    </div>
+    <!-- ===== 主体内容（每个页面不同） ===== -->
+    <div class="section">
+    <h2>About Me</h2>
+    <p>
+        I am a Ph.D. student in mathematics, specializing in 
+        <strong>Geometric Representation Theory</strong> and 
+        <strong>Algebraic Geometry</strong>. I also maintain interests in some aspects of arithmetic geometry and mathematical physics.
+    </p>
+    <p>
+        📧 liangsyx21 [at] mails.tsinghua.edu.cn · 🏢 
+    </p>
+</div>
+    <!-- 这里粘贴对应的模块内容 -->
 
     <div class="footer">
         Last updated: July 2026
     </div>
-
 </div>
 </body>
 </html>
