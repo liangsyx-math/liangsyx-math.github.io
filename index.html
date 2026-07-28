@@ -4,366 +4,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiyixin Liang · Mathematics</title>
-
-    <!-- ==================== 样式表（可以自由调整颜色和间距） ==================== -->
+    <title>Your Name · Mathematics</title>
     <style>
-        /* 全局重置与基础排版 */
+        /* 全局 */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: "Source Serif 4", "Georgia", "Times New Roman", serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 17px;
             line-height: 1.7;
-            color: #2c3e50;
-            background: #f8f9fa;
+            color: #222;
+            background: #fff;
             padding: 0 20px;
         }
-        a { color: #1a5276; text-decoration: none; border-bottom: 1px solid #aab7c4; }
-        a:hover { border-bottom-color: #1a5276; }
+        a { color: #1a5276; text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
-        /* 主容器 */
+        /* 容器 */
         .container {
-            max-width: 920px;
-            margin: 60px auto;
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
         }
 
-        /* 左侧个人信息卡片 */
-        .sidebar {
-            flex: 0 0 260px;
-            background: #fff;
-            padding: 35px 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        /* 头部区域 */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2em;
+            padding-bottom: 0.8em;
+            border-bottom: 1px solid #e0e0e0;
         }
-        .profile-pic {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-        .sidebar h1 {
-            font-size: 1.8em;
+        .header-left h1 {
+            font-size: 2em;
             font-weight: 600;
-            margin-bottom: 5px;
-            color: #1a1a1a;
+            margin-bottom: 0.1em;
         }
-        .sidebar .affil {
+        .header-left .affil {
             font-size: 0.95em;
-            color: #4a4a4a;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .sidebar .info-item {
-            font-size: 0.9em;
             color: #555;
-            margin-bottom: 8px;
         }
-        .sidebar .info-item a {
+        .header-right img.profile-pic {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* 导航 */
+        nav {
+            margin: 1.5em 0 2em;
+        }
+        nav a {
+            display: inline-block;
+            margin-right: 25px;
+            font-weight: 500;
+            font-size: 0.95em;
+            color: #444;
             border-bottom: none;
         }
-        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+        nav a:hover { color: #1a5276; }
 
-        /* 右侧主体区域 */
-        .main { flex: 1; min-width: 0; }
+        /* 板块 */
         .section {
-            background: #fff;
-            padding: 30px 35px;
-            margin-bottom: 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            margin-bottom: 2.5em;
         }
         .section h2 {
-            font-size: 1.35em;
+            font-size: 1.4em;
             font-weight: 600;
-            margin-bottom: 0.7em;
-            padding-bottom: 0.25em;
-            border-bottom: 2px solid #e9ecef;
-            color: #1a1a1a;
+            margin-bottom: 0.6em;
+            padding-bottom: 0.1em;
+            border-bottom: 2px solid #eee;
         }
-        .section p, .section li { margin-bottom: 0.7em; }
-
-        /* 列表（无符号列表常用于论文） */
-        ul.clean-list { list-style: none; padding-left: 0; }
+        .section p, .section li { margin-bottom: 0.5em; }
 
         /* 论文条目 */
         .pub-item {
-            padding: 14px 0;
-            border-bottom: 1px solid #f0f0f0;
-            transition: transform 0.15s ease;
+            margin-bottom: 1.2em;
         }
-        .pub-item:last-child { border-bottom: none; }
-        .pub-item:hover { transform: translateX(6px); }
-        .pub-title { font-weight: 600; font-size: 1.05em; margin-bottom: 2px; }
-        .pub-meta { font-size: 0.9em; color: #666; margin-bottom: 3px; }
+        .pub-title {
+            font-weight: 600;
+        }
+        .pub-meta {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 0.1em;
+        }
         .pub-links a {
             font-size: 0.85em;
-            margin-right: 12px;
-            border-bottom: 1px dashed #b0bec5;
-            color: #37474f;
+            margin-right: 15px;
+            color: #555;
+            border-bottom: 1px dashed #aaa;
         }
         .pub-links a:hover { border-bottom-style: solid; }
-
-        /* 预印本 / 已发表 标签 */
         .tag {
             display: inline-block;
             background: #e8f0fe;
             color: #1565c0;
-            font-size: 0.75em;
+            font-size: 0.7em;
             font-weight: 600;
-            padding: 2px 8px;
+            padding: 1px 7px;
             border-radius: 10px;
-            margin-left: 8px;
+            margin-left: 6px;
             vertical-align: middle;
         }
         .tag.preprint { background: #fef3e0; color: #e65100; }
 
-        /* 演讲列表 */
+        /* 演讲 */
         .talk-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #f5f5f5;
+            margin-bottom: 1em;
         }
-        .talk-item:last-child { border-bottom: none; }
         .talk-date { font-weight: 600; }
 
-        /* 照片网格 */
+        /* 画廊 */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 0.8em;
         }
         .gallery img {
             width: 100%;
             height: 140px;
             object-fit: cover;
             border-radius: 6px;
-            transition: transform 0.2s;
             cursor: pointer;
+            transition: transform 0.2s;
         }
         .gallery img:hover { transform: scale(1.02); }
-
-        /* 响应式：手机端上下排列 */
-        @media (max-width: 750px) {
-            .container { flex-direction: column; }
-            .sidebar { flex: none; width: 100%; text-align: center; }
-            .sidebar .profile-pic { width: 180px; margin: 0 auto 25px; }
-        }
 
         /* 页脚 */
         .footer {
             text-align: center;
-            color: #999;
+            color: #888;
             font-size: 0.85em;
-            margin: 30px 0 20px;
+            margin-top: 2em;
+        }
+
+        /* 响应式：窄屏时头像移到上面 */
+        @media (max-width: 600px) {
+            .site-header { flex-direction: column; align-items: flex-start; }
+            .header-right { margin-top: 15px; }
+            nav a { display: block; margin-bottom: 5px; }
         }
     </style>
 
-    <!-- ==================== MathJax 数学公式支持 ==================== -->
+    <!-- MathJax -->
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['\\(', '\\)']],   // 使用 \( ... \) 输入行内公式
-                displayMath: [['$$', '$$']]    // 使用 $$ ... $$ 输入独立公式
-            },
+            tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] },
             svg: { fontCache: 'global' }
         };
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- 可选：引入优雅的衬线字体 (Source Serif 4) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
 
-    <!-- ==================== 左侧边栏：个人基本信息 ==================== -->
-    <aside class="sidebar">
-        <!-- 请把你的照片命名为 photo.jpg 放在和 index.html 同一目录 -->
-        <img src="photo.jpg" alt="Your Name" class="profile-pic">
-
-        <h1>Liang Shiyixin(梁 石易新)</h1>
-        <div class="affil">
-            Ph.D. student in Mathematics<br>
-            Qiuzhen College<br>
-            Tsinghua University<br>
-            Beijing, China
-        </div>
-
-        <div class="info-item">📧 liangsyx21 [at] tsinghua.edu.cn</div>
-        <!--<div class="info-item">🏢 Office: Room 3.14</div>
-        <hr>
-        <div class="info-item">
-            <a href="cv.pdf">📄 Curriculum Vitae (PDF)</a>
-        </div>
-        <div class="info-item">
-            <a href="https://scholar.google.com/citations?user=YOUR_ID">Google Scholar</a>
-        </div>
-        <div class="info-item">
-            <a href="https://arxiv.org/a/YOUR_ID">arXiv</a>
-        </div>
-        <div class="info-item">
-            <a href="https://orcid.org/YOUR_ID">ORCID</a>
-        </div>
-        <!-- 可继续添加 GitHub, MathSciNet 等 -->
-    
-    </aside>
-
-    <!-- ==================== 右侧主体：所有学术内容 ==================== -->
-    <main class="main">
-
-        <!-- 简短介绍 -->
-        <div class="section">
-            <h2>About Me</h2>
-            <p>
-                I am a Ph.D. student in mathematics, with a focus on Geometric Representation Theory and Algebraic Geometry.
-            </p>
-            <!--<p>
-                I am particularly interested in how categorical methods can be used to 
-                solve classical problems in arithmetic geometry.
-            </p>
-            -->
-        </div>
-
-        <!-- 研究兴趣（可以用 LaTeX 公式） -->
-        <div class="section">
-            <h2>Research Interests</h2>
-            <!--Most of my interests concentrate on Geometric Representation Theory, Algebraic Geometry. I also keep an eye on Arithmetic Geometry, Mathematical Physics etc.-->
-            Geometric Representation Theory, Algebraic Geometry.
-            <br> <br>
-            <br> Some particularly interested topics <br>
-            <ul>
-                 <li> Geometric structures arising from geometric Langlands program; </li>
-                <li> Symplectic duality, Coulomb branches, quiver varieties; </li>
-                <li> K-theoretic Coulomb branches; </li>
-                <li> ...... </li>
-            </ul>
-        </div>
-
-        <!-- 教育背景（可选） 
-        <div class="section">
-            <h2>Education</h2>
-            <ul class="clean-list">
-                <li><strong>Ph.D. in Mathematics</strong>, University of Somewhere, 2024<br>
-                    <span style="color:#666;">Thesis: <em>On the motivic Galois group</em> · Advisor: Prof. A. Advisor</span></li>
-                <li><strong>M.Sc. in Mathematics</strong>, Another University, 2020</li>
-                <li><strong>B.Sc. in Mathematics</strong>, Another University, 2018</li>
-            </ul>
-        </div>
-        -->
-
-        <!-- 发表论文与预印本 -->
-        <div class="section">
-            <h2>Publications & Preprints</h2>
-
-            <!-- 论文条目模板，可以无限复制 -->
-           <!-- <div class="pub-item">
-                <div class="pub-title">
-                    On the motivic Galois group
-                    <span class="tag">published</span>
-                </div>
-                <div class="pub-meta">
-                    with A. Coauthor · <em>Journal of Pure and Applied Algebra</em>, 2025
-                </div>
-                <div class="pub-links">
-                    <a href="https://arxiv.org/abs/2501.xxxxx">arXiv</a>
-                    <a href="https://doi.org/...">DOI</a>
-                    <a href="#">PDF</a>
-                </div>
-            </div>
-            -->
-
-            <div class="pub-item">
-                <div class="pub-title">
-                    A Coherent Version of Geometric Satake Equivalence for Type A
-                    <span class="tag preprint">preprint</span>
-                </div>
-                <div class="pub-meta">
-                    2026
-                </div>
-                <div class="pub-links">
-                    <a href="https://arxiv.org/abs/2601.07390">arXiv</a>
-                </div>
-            </div>
-
-            
-            <!-- 增加更多论文只需复制 pub-item 块 -->
-        </div>
-
-        <!-- 演讲与会议 -->
-        <!--
-        <div class="section">
-            <h2>Talks & Conferences</h2>
-            <div class="talk-item">
-                <span class="talk-date">Jul 2026</span> — 
-                <em>Derived categories and motivic sheaves</em><br>
-                <span style="color:#666;">International Congress of Mathematicians (invited talk), Philadelphia</span>
-            </div>
-            <div class="talk-item">
-                <span class="talk-date">Mar 2026</span> — 
-                <em>Stability conditions on K3 surfaces</em><br>
-                <span style="color:#666;">Algebraic Geometry Seminar, MIT</span>
-            </div>
-            <div class="talk-item">
-                <span class="talk-date">Oct 2025</span> — 
-                <em>\(p\)-adic Hodge theory for beginners</em><br>
-                <span style="color:#666;">Graduate Colloquium, University of Somewhere</span>
+    <!-- ========== 头部：名字、单位、照片 ========== -->
+    <header class="site-header">
+        <div class="header-left">
+            <h1>Your Name</h1>
+            <div class="affil">
+                PhD in Mathematics<br>
+                Department of Mathematics, University of Somewhere
             </div>
         </div>
-        -->
-
-        <!-- 教学经历 -->
-        <!--
-        <div class="section">
-            <h2>Teaching</h2>
-            <ul>
-                <li><strong>Spring 2026:</strong> MATH 101 Linear Algebra (Instructor)</li>
-                <li><strong>Fall 2025:</strong> MATH 202 Calculus II (Teaching Assistant)</li>
-                <li><strong>Spring 2025:</strong> MATH 301 Abstract Algebra (TA)</li>
-            </ul>
+        <div class="header-right">
+            <img src="photo.jpg" alt="Your Name" class="profile-pic">
         </div>
-        -->
+    </header>
 
-        <!-- 学术服务与活动 -->
-        <!--
-        <div class="section">
-            <h2>Service & Activities</h2>
-            <ul>
-                <li>Co-organizer, <em>Young Researchers in Algebraic Geometry</em>, 2025</li>
-                <li>Referee for <em>Journal of Algebra</em>, <em>Mathematische Zeitschrift</em></li>
-            </ul>
-        </div>
-        -->
+    <!-- ========== 导航栏 ========== -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#publications">Publications</a>
+        <a href="#talks">Talks</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#photos">Photos</a>
+        <a href="cv.pdf">CV</a>
+    </nav>
 
-        <!-- 照片画廊（可选，可先保留空结构，以后再加） -->
-        <!--
-        <div class="section">
-            <h2>Photos</h2>
-            <div class="gallery">
-                <!-- 图片放在 images/ 文件夹下，例如 images/seminar1.jpg -->
-                <img src="images/seminar1.jpg" alt="Speaking at a seminar">
-                <img src="images/blackboard.jpg" alt="Blackboard work">
-                <img src="images/conference.jpg" alt="Conference group">
-                <!-- 继续添加更多 -->
+    <!-- ========== 关于我 ========== -->
+    <div class="section" id="about">
+        <h2>About Me</h2>
+        <p>
+            I am a Ph.D. student in mathematics, specializing in 
+            <strong>Geometric Representation Theory</strong> and 
+            <strong>Algebraic Geometry</strong>. I also maintain a strong 
+            interest in arithmetic geometry and mathematical physics.
+        </p>
+        <p>
+            📧 name [at] university.edu · 🏢 Office: Room 3.14
+        </p>
+    </div>
+
+    <!-- ========== 发表论文 ========== -->
+    <div class="section" id="publications">
+        <h2>Publications & Preprints</h2>
+
+        <div class="pub-item">
+            <div class="pub-title">
+                On the motivic Galois group
+                <span class="tag">published</span>
             </div>
-            <p style="color:#888; font-size:0.9em; margin-top:10px;">
-                Moments from conferences and seminars.
-            </p>
+            <div class="pub-meta">
+                with A. Coauthor · <em>J. Pure Appl. Algebra</em>, 2025
+            </div>
+            <div class="pub-links">
+                <a href="https://arxiv.org/abs/2501.xxxxx">arXiv</a>
+                <a href="#">DOI</a>
+                <a href="#">PDF</a>
+            </div>
         </div>
-        -->
 
-        <!-- 页脚更新时间 -->
-        <div class="footer">
-            Last updated: July 2026
+        <div class="pub-item">
+            <div class="pub-title">
+                Stability conditions on Calabi-Yau varieties
+                <span class="tag preprint">preprint</span>
+            </div>
+            <div class="pub-meta">2023</div>
+            <div class="pub-links">
+                <a href="https://arxiv.org/abs/2306.xxxxx">arXiv</a>
+            </div>
         </div>
 
-    </main>
+        <div class="pub-item">
+            <div class="pub-title">
+                A short proof of the ...
+                <span class="tag">published</span>
+            </div>
+            <div class="pub-meta"><em>Math. Ann.</em>, 2022</div>
+            <div class="pub-links">
+                <a href="#">DOI</a>
+                <a href="#">PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 学术报告 ========== -->
+    <div class="section" id="talks">
+        <h2>Talks & Conferences</h2>
+        <div class="talk-item">
+            <span class="talk-date">Jul 2026</span> — 
+            <em>Derived categories and motivic sheaves</em><br>
+            <span style="color:#666;">ICM, Philadelphia (invited)</span>
+        </div>
+        <div class="talk-item">
+            <span class="talk-date">Mar 2026</span> — 
+            <em>Stability conditions on K3 surfaces</em><br>
+            <span style="color:#666;">Algebraic Geometry Seminar, MIT</span>
+        </div>
+    </div>
+
+    <!-- ========== 教学 ========== -->
+    <div class="section" id="teaching">
+        <h2>Teaching</h2>
+        <ul>
+            <li><strong>Spring 2026:</strong> MATH 101 Linear Algebra (Instructor)</li>
+            <li><strong>Fall 2025:</strong> MATH 202 Calculus II (TA)</li>
+        </ul>
+    </div>
+
+    <!-- ========== 照片 ========== -->
+    <div class="section" id="photos">
+        <h2>Photos</h2>
+        <div class="gallery">
+            <img src="images/seminar1.jpg" alt="Seminar">
+            <img src="images/blackboard.jpg" alt="Blackboard">
+            <img src="images/conference.jpg" alt="Conference">
+        </div>
+    </div>
+
+    <div class="footer">
+        Last updated: July 2026
+    </div>
+
 </div>
-
 </body>
 </html>
